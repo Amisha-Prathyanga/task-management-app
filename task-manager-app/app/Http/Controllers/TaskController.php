@@ -1,8 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+
+
 
 use Illuminate\Http\Request;
+
+use App\Models\Task;
+use App\Models\User;
+
+
 
 class TaskController extends Controller
 {
