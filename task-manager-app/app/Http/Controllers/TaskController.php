@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use App\Events\TaskCompletedEvent;
 
 
 use Illuminate\Http\Request;
@@ -146,7 +146,7 @@ class TaskController extends Controller
         $task->save();
 
         // Here you would trigger the email notification
-        // event(new TaskCompletedEvent($task));
+        event(new TaskCompletedEvent($task));
 
         Alert::success('Success', 'Task marked as completed.');
         return redirect()->back();

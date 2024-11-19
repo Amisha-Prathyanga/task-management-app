@@ -8,7 +8,7 @@
         <a href="{{ route('tasks.export') }}" class="btn btn-success">
             <i class="fas fa-download"></i> Export to CSV
         </a>
-        
+
         <a href="{{ route('tasks.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Create New Task
         </a>
@@ -103,8 +103,9 @@
     </div>
 
     <!-- Pagination -->
-    <div class="mt-4">
-        {{ $tasks->links() }}
+    <div class=" mt-4 d-flex justify-content-center">
+            <div> {!! $tasks->links() !!} </div>
     </div>
+
 </div>
 @endsection
