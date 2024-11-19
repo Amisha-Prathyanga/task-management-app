@@ -26,6 +26,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tasks/export', function () {
         return Excel::download(new TasksExport, 'tasks.csv');
     })->name('tasks.export');
+
+    Route::get('/tasks/pay/{id}', [TaskController::class, 'showPayment'])->name('tasks.pay');
+    Route::post('/tasks/pay/{id}', [TaskController::class, 'processPayment'])->name('tasks.processPayment');
 });
 Auth::routes();
 

@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Events\TaskCompletedEvent;
 
+use Stripe\Stripe;
+use Stripe\Charge;
+
 
 use Illuminate\Http\Request;
 
@@ -190,5 +193,51 @@ class TaskController extends Controller
         Alert::success('Success', 'Task deleted successfully.');
         return redirect()->route('tasks.index');
     }
+
+
+    public function showPayment($id)
+    {
+        $task = Task::findOrFail($id);
+
+        if ($task->is_paid) {
+            Alert::info('Info', 'This task is already paid.');
+            return redirect()->back();
+        }
+
+        return view('tasks.pay', compact('task'));
+    }
+
+    public function processPayment(Request $request, $id)
+    {
+        $task = Task::findOrFail($id);
+
+        if ($task->is_paid) {
+            return response()->json(['success' => false, 'message' => 'Task already paid.']);
+        }
+
+        $request->validate([
+            'stripeToken' => 'required',
+        ]);
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        try {
+            $charge = Charge::create([
+                'amount' => 1000, // Amount in cents ($10)
+                'currency' => 'usd',
+                'description' => "Payment for task: {$task->title}",
+                'source' => $request->stripeToken,
+            ]);
+
+            $task->is_paid = true;
+            $task->save();
+
+            Alert::success('Success', 'Payment successful. Task is now marked as paid.');
+            return redirect()->route('tasks.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
 
 }

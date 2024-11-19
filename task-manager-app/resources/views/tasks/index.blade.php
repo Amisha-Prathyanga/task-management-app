@@ -65,6 +65,12 @@
                                 <span class="badge {{ $task->is_completed ? 'bg-success' : 'bg-secondary' }}">
                                     {{ $task->is_completed ? 'Completed' : 'Pending' }}
                                 </span>
+
+                                @if(!$task->is_paid)
+                                    <span class="badge bg-warning">Not Paid</span>
+                                @else
+                                    <span class="badge bg-success">Paid</span>
+                                @endif
                             </td>
                             <td>
                                 <div class="btn-group" role="group">
@@ -77,9 +83,16 @@
                                     </form>
                                     @endif
 
+                                    @if(!$task->is_paid)
+                                    <a href="{{ route('tasks.pay', $task->id) }}" class="btn btn-sm btn-warning">
+                                        <i class="fas fa-credit-card"></i> Pay $10
+                                    </a>
+                                    @endif
+                                    
                                     <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-primary">
                                         <i class="fas fa-edit"></i>
                                     </a>
+
 
                                     <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inline">
                                         @csrf
