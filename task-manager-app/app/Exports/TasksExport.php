@@ -40,7 +40,6 @@ class TasksExport implements FromQuery, WithHeadings, WithTitle
     }
 
     /**
-     * Set the sheet title.
      *
      * @return string
      */

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Events\TaskCompletedEvent;
@@ -154,7 +155,6 @@ class TaskController extends Controller
         $task->is_completed = true;
         $task->save();
 
-        // Here you would trigger the email notification
         event(new TaskCompletedEvent($task));
 
         Alert::success('Success', 'Task marked as completed.');
@@ -231,7 +231,7 @@ class TaskController extends Controller
 
         try {
             $charge = Charge::create([
-                'amount' => 1000, // Amount in cents ($10)
+                'amount' => 1000, 
                 'currency' => 'usd',
                 'description' => "Payment for task: {$task->title}",
                 'source' => $request->stripeToken,

@@ -23,9 +23,4 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
     }
 
-    protected $listen = [
-        TaskCompletedEvent::class => [
-            SendTaskCompletionEmail::class,
-        ],
-    ];
 }
