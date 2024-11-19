@@ -196,6 +196,8 @@ class TaskController extends Controller
             ]);
         }
 
+        session()->flash('alert', 'Task deleted successfully.');
+
         Alert::success('Success', 'Task deleted successfully.');
         return redirect()->route('tasks.index');
     }
