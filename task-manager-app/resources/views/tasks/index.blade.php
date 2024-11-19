@@ -27,6 +27,15 @@
                         <option value="low" {{ request('priority') == 'low' ? 'selected' : '' }}>Low</option>
                     </select>
                 </div>
+
+                <div class="col-md-4">
+                    <label for="sort" class="form-label">Sort By Due Date</label>
+                    <select name="sort" id="sort" class="form-select">
+                        <option value="asc" {{ request('sort') == 'asc' ? 'selected' : '' }}>Ascending</option>
+                        <option value="desc" {{ request('sort') == 'desc' ? 'selected' : '' }}>Descending</option>
+                    </select>
+                </div>
+
                 <div class="col-md-2 d-flex align-items-end">
                     <button type="submit" class="btn btn-secondary">Apply Filters</button>
                 </div>
@@ -88,7 +97,7 @@
                                         <i class="fas fa-credit-card"></i> Pay $10
                                     </a>
                                     @endif
-                                    
+
                                     <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-primary">
                                         <i class="fas fa-edit"></i>
                                     </a>

@@ -30,8 +30,14 @@ class TaskController extends Controller
         $query = Task::query();
 
         
-        if ($request->has('priority')) {
+        if ($request->has('priority') && $request->priority) {
             $query->where('priority', $request->priority);
+        }
+
+        if ($request->has('sort') && in_array($request->sort, ['asc', 'desc'])) {
+            $query->orderBy('due_date', $request->sort);
+        } else {
+            $query->orderBy('due_date', 'asc'); 
         }
 
         
