@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Exports\TasksExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+Route::redirect('/', '/login');
+
 Auth::routes();
 
 Route::get('/', function () {
@@ -14,6 +16,9 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::redirect('/home', '/tasks');
+
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
     Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
@@ -32,6 +37,6 @@ Route::group(['middleware' => 'auth'], function () {
 });
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 

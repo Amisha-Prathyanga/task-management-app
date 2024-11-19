@@ -86,19 +86,19 @@
                                     @if(!$task->is_completed)
                                     <form action="{{ route('tasks.complete', $task->id) }}" method="POST" class="d-inline">
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-success">
+                                        <button type="submit" class="btn btn-sm btn-success me-2">
                                             <i class="fas fa-check"></i>
                                         </button>
                                     </form>
                                     @endif
 
                                     @if(!$task->is_paid)
-                                    <a href="{{ route('tasks.pay', $task->id) }}" class="btn btn-sm btn-warning">
+                                    <a href="{{ route('tasks.pay', $task->id) }}" class="btn btn-sm btn-warning me-2" >
                                         <i class="fas fa-credit-card"></i> Pay $10
                                     </a>
                                     @endif
 
-                                    <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-primary">
+                                    <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-primary me-2">
                                         <i class="fas fa-edit"></i>
                                     </a>
 
