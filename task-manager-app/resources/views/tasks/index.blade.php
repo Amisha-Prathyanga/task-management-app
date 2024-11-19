@@ -4,6 +4,11 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Task Management</h1>
+
+        <a href="{{ route('tasks.export') }}" class="btn btn-success">
+            <i class="fas fa-download"></i> Export to CSV
+        </a>
+        
         <a href="{{ route('tasks.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Create New Task
         </a>

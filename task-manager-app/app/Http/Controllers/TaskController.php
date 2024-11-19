@@ -13,6 +13,8 @@ use App\Models\User;
 
 
 
+
+
 class TaskController extends Controller
 {
      /**
@@ -55,6 +57,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -69,6 +72,14 @@ class TaskController extends Controller
         $task->due_date = $validated['due_date'];
         $task->priority = $validated['priority'];
         $task->save();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'task' => $task,
+                'message' => 'Task created successfully'
+            ]);
+        }
 
         Alert::success('Success', 'Task created successfully.');
         return redirect()->route('tasks.index');
@@ -95,6 +106,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -108,6 +120,14 @@ class TaskController extends Controller
         $task->due_date = $validated['due_date'];
         $task->priority = $validated['priority'];
         $task->save();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'task' => $task,
+                'message' => 'Task updated successfully'
+            ]);
+        }
 
         Alert::success('Success', 'Task updated successfully.');
         return redirect()->route('tasks.index');
@@ -156,10 +176,19 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
+
         $task = Task::findOrFail($id);
         $task->delete();
+
+        if (request()->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Task deleted successfully'
+            ]);
+        }
 
         Alert::success('Success', 'Task deleted successfully.');
         return redirect()->route('tasks.index');
     }
+
 }

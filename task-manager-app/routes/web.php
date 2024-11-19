@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Auth; 
 
+use App\Exports\TasksExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 Auth::routes();
 
 Route::get('/', function () {
@@ -19,7 +22,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
     Route::post('/tasks/{id}/complete', [TaskController::class, 'markComplete'])->name('tasks.complete');
     Route::post('/tasks/{id}/paid', [TaskController::class, 'markPaid'])->name('tasks.paid');
+
+    Route::get('/tasks/export', function () {
+        return Excel::download(new TasksExport, 'tasks.csv');
+    })->name('tasks.export');
 });
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
