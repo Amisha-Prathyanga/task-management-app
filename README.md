@@ -24,7 +24,7 @@ A comprehensive task management application built with Laravel that allows users
 1. Clone the repository
 ```bash
 git clone https://github.com/Amisha-Prathyanga/task-management-app.git
-cd task-manager
+cd task-management-app
 ```
 
 2. Install PHP dependencies
