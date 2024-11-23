@@ -31,8 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tasks/pay/{id}', [TaskController::class, 'showPayment'])->name('tasks.pay');
     Route::post('/tasks/pay/{id}', [TaskController::class, 'processPayment'])->name('tasks.processPayment');
 });
-Auth::routes();
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 
